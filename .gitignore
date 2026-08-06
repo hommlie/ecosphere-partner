@@ -1,0 +1,64 @@
+# ==========================
+# Gradle
+# ==========================
+.gradle/
+build/
+*/build/
+
+# ==========================
+# Local configuration
+# ==========================
+local.properties
+
+# ==========================
+# Android Studio / IntelliJ
+# ==========================
+.idea/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+
+*.iml
+
+# Ignore user-specific IDE files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# ==========================
+# Generated files
+# ==========================
+bin/
+gen/
+out/
+
+# ==========================
+# Native build
+# ==========================
+.externalNativeBuild/
+.cxx/
+
+# ==========================
+# Logs
+# ==========================
+*.log
+
+# ==========================
+# APK / AAB
+# ==========================
+*.apk
+*.aab
+*.ap_
+*.aar
+
+# ==========================
+# Captures
+# ==========================
+captures/
+
+# ==========================
+# OS files
+# ==========================
+.DS_Store
+Thumbs.db

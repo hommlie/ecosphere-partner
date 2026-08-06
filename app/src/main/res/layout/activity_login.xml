@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.login.ui.LoginAct"
+    android:fillViewport="true"
+    android:overScrollMode="ifContentScrolls"
+    android:background="@color/login_bg_color"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.login.Login"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:src="@drawable/app_logo"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="EcoSphere Partner"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="@dimen/_18ssp"
+                android:lineHeight="24sp"
+                android:letterSpacing="0.005"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Field app for waste &amp; collection partners"
+                android:textColor="@color/gray_text_color"
+                android:textSize="@dimen/_12ssp"
+                android:lineHeight="24sp"
+                android:letterSpacing="0.005"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:text="User ID"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_11ssp"
+                android:lineHeight="15.6dp"
+                android:letterSpacing="0.03"/>
+
+            <EditText
+                android:id="@+id/edt_user_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:hint="Enter your user id"
+                android:textColorHint="@color/color_C0C0C0"
+                android:textColor="@color/color_616161"
+                android:textSize="@dimen/_12ssp"
+                android:inputType="textCapCharacters"
+                android:maxLength="10"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/edittext_border_selector"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:text="Password"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_11ssp"
+                android:lineHeight="15.6dp"
+                android:letterSpacing="0.03"/>
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:hint="Enter your password"
+                android:textColorHint="@color/color_C0C0C0"
+                android:textColor="@color/color_616161"
+                android:textSize="@dimen/_12ssp"
+                android:maxLength="10"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/edittext_border_selector"
+                />
+            <TextView
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/bg_gradient_curved_btn"
+                android:textSize="@dimen/_14ssp"
+                android:text="Login"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                />
+            <TextView
+                android:id="@+id/tv_terms_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="By continuing you agree to EcoSphere's Partner Terms &amp; Privacy Policy"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/gray_text_color"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

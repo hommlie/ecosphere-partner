@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Ecosphere Partner</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="permission_location_title">Location Access</string>
+    <string name="permission_location_description">Required to track your live route during work.</string>
+    <string name="permission_location_note">Choose "Allow all the time" when requested.</string>
+
+    <string name="permission_background_title">Background Location</string>
+    <string name="permission_background_description">Required to continue tracking when the app is in background.</string>
+    <string name="permission_background_note">Tracking will stop if this permission is denied.</string>
+
+    <string name="permission_notification_title">Notifications</string>
+    <string name="permission_notification_description">Required to keep the tracking service running.</string>
+    <string name="permission_notification_note">A foreground notification will always be shown while tracking.</string>
+
+    <string name="permission_battery_title">Battery Optimization</string>
+    <string name="permission_battery_description">Disable battery optimization so Android does not stop tracking.</string>
+    <string name="permission_battery_note">Recommended for uninterrupted tracking.</string>
+
+    <string name="permission_gps_title">GPS Access</string>
+    <string name="permission_gps_description">Location services are disabled. Please turn on device location services to continue.</string>
+    <string name="permission_gps_note">Recommended for uninterrupted tracking.</string>
+
+    <string name="permission_required">Permission Required</string>
+    <string name="permission_permanently_denied_message">This permission has been permanently denied. Please enable it from App Settings to continue.</string>
+    <string name="disable_battery_optimization">Disable Battery Optimization</string>
+    <string name="disable_battery_optimization_message">To ensure uninterrupted background tracking, please disable battery optimization for this app.</string>
+    <string name="enable_location">Enable Location</string>
+    <string name="enable_location_message">Please turn on device location services to continue.</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="continue_text">Continue</string>
+    <string name="cancel">Cancel</string>
+    <string name="granted">Granted</string>
+
+    <string name="permission_complete_title">You are All Set!</string>
+    <string name="permission_complete_description">All required permissions have been granted. Your technician app is now ready to track your work accurately in the background.</string>
+    <string name="start_tracking">Start Tracking</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

@@ -1,0 +1,23 @@
+<resources>
+    <dimen name="fab_margin">48dp</dimen>
+    <!-- Tablet overrides -->
+    <dimen name="onboarding_content_max_width">560dp</dimen>
+    <dimen name="onboarding_horizontal_margin">40dp</dimen>
+    <dimen name="onboarding_icon_size">72dp</dimen>
+    <dimen name="onboarding_icon_glyph_size">34dp</dimen>
+    <dimen name="onboarding_title_size">24sp</dimen>
+    <dimen name="onboarding_body_size">16sp</dimen>
+    <dimen name="onboarding_note_size">13sp</dimen>
+    <dimen name="onboarding_button_height">56dp</dimen>
+
+    <dimen name="dp_24">32dp</dimen>
+    <dimen name="dp_32">40dp</dimen>
+    <dimen name="dp_40">48dp</dimen>
+    <dimen name="dp_56">64dp</dimen>
+    <dimen name="dp_72">80dp</dimen>
+
+    <dimen name="sp_14">16sp</dimen>
+    <dimen name="sp_16">18sp</dimen>
+    <dimen name="sp_20">24sp</dimen>
+    <dimen name="sp_24">28sp</dimen>
+</resources>

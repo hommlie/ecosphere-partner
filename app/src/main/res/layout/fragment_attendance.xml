@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.attendance.Attendance"
+    android:background="@color/activity_fade_white_bg">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toBottomOf="@id/view_status_bar">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Attendance Summary"
+                android:textColor="@color/color_344054"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_12sdp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_refresh"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                app:layout_constraintDimensionRatio="1:1"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:contentDescription="TODO"
+                android:clickable="true"
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_refresh"
+                app:tint="#716E6E"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_calender"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_calender"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                app:layout_constraintDimensionRatio="1:1"
+                android:layout_marginEnd="@dimen/_7sdp"
+                android:contentDescription="TODO"
+                android:clickable="true"
+                android:padding="@dimen/dp_6"
+                android:src="@drawable/ic_calender2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/color_DBD7D7"
+                android:visibility="gone"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_top_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:strokeWidth="0dp"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_gradient_hrz_curved_btn"
+                        android:paddingBottom="@dimen/_10sdp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_duty_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:background="@drawable/bg_circular_light"
+                            >
+
+                            <com.ecosphere.partner.core.widget.LiveIndicatorView
+                                android:id="@+id/liveIndicator_dutyStatus"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                app:layout_constraintTop_toTopOf="@id/tv_duty_status"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_duty_status"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:dotColor="@color/white"
+                                app:rippleColor="#55FFFFFF"
+                                app:dotRadius="3.5dp"
+                                app:duration="1200"/>
+                            <TextView
+                                android:id="@+id/tv_duty_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_marginStart="@dimen/_1sdp"
+                                app:layout_constraintStart_toEndOf="@id/liveIndicator_dutyStatus"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:text="DUTY"
+                                android:textSize="@dimen/_11ssp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_marginBottom="@dimen/_2sdp"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:text=""
+                            android:textColor="@color/off_white"
+                            android:fontFamily="@font/poppins_medium"
+                            app:layout_constraintTop_toTopOf="@id/cl_duty_status"
+                            app:layout_constraintBottom_toBottomOf="@id/cl_duty_status"
+                            android:textSize="@dimen/_11ssp"/>
+
+                        <TextView
+                            android:id="@+id/tv_curr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="@id/cl_duty_status"
+                            app:layout_constraintTop_toBottomOf="@id/cl_duty_status"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:text="Current Tracking Status"
+                            android:textColor="@color/off_white"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textSize="@dimen/_11ssp"/>
+
+                        <com.ecosphere.partner.core.widget.LiveRingIndicatorView
+                            android:id="@+id/liveIndicator"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_live"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_live"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_4sdp"/>
+
+                        <TextView
+                            android:id="@+id/tv_live"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@id/liveIndicator"
+                            android:layout_marginStart="@dimen/_1sdp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_curr"
+                            android:text="Live Tracking"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textSize="@dimen/_17ssp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_todays_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/mcv_top_card"
+                    app:layout_constraintTop_toBottomOf="@id/mcv_top_card"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="Trip Summary"
+                    android:textSize="@dimen/_13ssp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_punch_in_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/mcv_top_card"
+                    app:layout_constraintEnd_toStartOf="@id/mcv_punch_out_time"
+                    app:layout_constraintTop_toBottomOf="@id/tv_todays_summary"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:strokeColor="@color/gray_border">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/bg_circular_light"
+                            android:src="@drawable/ic_clock"
+                            app:tint="@color/color_primary"
+                            android:backgroundTint="@color/color_primary"
+                            android:padding="@dimen/_6sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_first_punch_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="00:00 AM"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="Punch In Time"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_10ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            android:singleLine="true"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_punch_out_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/mcv_top_card"
+                    app:layout_constraintStart_toEndOf="@id/mcv_punch_in_time"
+                    app:layout_constraintTop_toBottomOf="@id/tv_todays_summary"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:strokeWidth="0dp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeColor="@color/gray_border">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/bg_circular_light"
+                            android:src="@drawable/ic_clock"
+                            app:tint="@color/color_primary"
+                            android:backgroundTint="@color/color_primary"
+                            android:padding="@dimen/_6sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_last_punch_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="- -"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="Punch Out Time"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_10ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_punch_total_session"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/mcv_top_card"
+                    app:layout_constraintEnd_toStartOf="@id/mcv_punch_total_distance"
+                    app:layout_constraintTop_toBottomOf="@id/mcv_punch_out_time"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:strokeColor="@color/gray_text_color">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/bg_circular_light"
+                            android:src="@drawable/ic_session"
+                            app:tint="@color/color_primary"
+                            android:backgroundTint="@color/color_primary"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_total_session_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="Total Sessions"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_10ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcv_punch_total_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/mcv_top_card"
+                    app:layout_constraintStart_toEndOf="@id/mcv_punch_total_session"
+                    app:layout_constraintTop_toBottomOf="@id/mcv_punch_out_time"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    app:cardElevation="@dimen/_2sdp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:background="@drawable/bg_circular_light"
+                            android:src="@drawable/ic_distance"
+                            app:tint="@color/color_primary"
+                            android:backgroundTint="@color/color_primary"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_total_distance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="0.0 km"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            android:fontFamily="@font/manrope_semibold"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:text="Total Distance Travelled"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/_10ssp"
+                            android:singleLine="true"
+                            android:fontFamily="@font/manrope_semibold"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_todays_sessions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/mcv_top_card"
+                    app:layout_constraintTop_toBottomOf="@id/mcv_punch_total_session"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="Trip Sessions"
+                    android:textSize="@dimen/_13ssp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sessions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_todays_sessions"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"
+                    />
+                <LinearLayout
+                    android:id="@+id/ll_nodata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_todays_sessions"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_nodata"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_nodata_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Sessions Found"
+                        android:textSize="@dimen/_16ssp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginTop="@dimen/_15sdp"/>
+                    <TextView
+                        android:id="@+id/tv_nodata_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_11ssp"
+                        android:gravity="center"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_30sdp"
+                        android:text="There is no trips to show you right now"/>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
