@@ -109,5 +109,16 @@ dependencies {
     implementation(libs.glide)
     ksp(libs.glide.compiler)
 
+    implementation(libs.camera.core)
+    implementation(libs.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+    implementation(libs.camera.mlkit)
+
+    implementation(libs.mlkit.barcode)
+
+    implementation(libs.guava)
+    implementation(libs.lottie)
+
     implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.3")
 }

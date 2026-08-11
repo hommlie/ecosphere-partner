@@ -10,7 +10,14 @@ data class CommonResponse<T>(
     @SerializedName("message")
     val message: String,
 
-    @SerializedName("body")
+    @SerializedName("data")
     val data: T? = null,
 
+)
+data class SingleResponse(
+    @SerializedName("status")
+    val success: Int,
+
+    @SerializedName("message")
+    val message: String,
 )

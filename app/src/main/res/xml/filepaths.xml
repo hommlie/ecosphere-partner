@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+
+<!--    <cache-path name="shared_images" path=""/>-->
+
+    <cache-path
+        name="images"
+        path="." />
+    <external-files-path
+        name="download"
+        path="Download/" />
+    <files-path
+        name="internal_files"
+        path="." />
+
+</paths>
+

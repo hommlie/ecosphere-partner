@@ -1,6 +1,8 @@
 package com.ecosphere.partner.feature.attendance
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -25,11 +27,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import com.ecosphere.partner.core.util.CommonMethods
 import com.ecosphere.partner.core.common.getParcelableCompat
+import com.ecosphere.partner.core.common.startSlideActivity
 import com.ecosphere.partner.core.common.toKm
+import com.ecosphere.partner.core.datastore.SessionManager
 import com.ecosphere.partner.core.util.DateTimeUtils.toTime12Hour
 import com.ecosphere.partner.core.util.ProgressDialogUtil
+import com.ecosphere.partner.feature.login.ui.LoginAct
 import com.ecosphere.partner.feature.tracking.model.TrackingPoint
 import com.ecosphere.partner.feature.tracking.model.TrackingStatus
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AttendanceMap : AppCompatActivity(), OnMapReadyCallback {
@@ -39,6 +45,7 @@ class AttendanceMap : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var renderer: RouteRenderer
     private var trackingSession: TrackingSessionUi? = null
+    @Inject lateinit var sessionManager: SessionManager
 
     companion object {
         const val EXTRA_TRACKING_SESSION= "extra_tracking_session"
@@ -73,6 +80,7 @@ class AttendanceMap : AppCompatActivity(), OnMapReadyCallback {
             return
         }
 
+        observeSessionExpired()
         setupToolbar()
         setupMap()
 
@@ -220,6 +228,29 @@ class AttendanceMap : AppCompatActivity(), OnMapReadyCallback {
             ) {
                 binding.tvEndAddress.post {
                     binding.tvEndAddress.text = it
+                }
+            }
+        }
+    }
+
+    private fun observeSessionExpired() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                sessionManager.sessionExpired.collect {
+
+                    Toast.makeText(
+                        this@AttendanceMap,
+                        "Session expired. Please login again.",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    startSlideActivity(
+                        Intent(this@AttendanceMap, LoginAct::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
+                    )
                 }
             }
         }

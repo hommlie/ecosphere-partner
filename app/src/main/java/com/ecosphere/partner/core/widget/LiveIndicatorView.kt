@@ -89,11 +89,9 @@ class LiveIndicatorView @JvmOverloads constructor(
     fun start() {
 
         if (width == 0) {
-
             post {
                 start()
             }
-
             return
         }
 
@@ -235,10 +233,10 @@ class LiveIndicatorView @JvmOverloads constructor(
         )
     }
 
-//    override fun onAttachedToWindow() {
-//        super.onAttachedToWindow()
-//        start()
-//    }
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        start()
+    }
 
     override fun onDetachedFromWindow() {
         stop()

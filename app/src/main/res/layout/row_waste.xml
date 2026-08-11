@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        app:strokeWidth="0dp"
+        app:cardElevation="@dimen/_2sdp"
+        app:cardBackgroundColor="@color/white">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_11sdp">
+
+            <ImageView
+                android:id="@+id/iv_waste_color"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
+                android:src="@drawable/bg_circle"
+                app:tint="@color/waste_wet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_waste_type"
+                app:layout_constraintBottom_toBottomOf="@id/tv_waste_type"
+                android:layout_marginBottom="@dimen/_2sdp"
+                />
+
+            <TextView
+                android:id="@+id/tv_waste_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/iv_waste_color"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:singleLine="true"
+                android:text="Waste Type"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@color/eco_text_primary"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_waste_type"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:singleLine="true"
+                android:text="Weight (KG) *"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/eco_text_secondary"
+                android:fontFamily="@font/poppins_medium"
+                />
+            <EditText
+                android:id="@+id/edt_weight"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_38sdp"
+                app:layout_constraintTop_toBottomOf="@id/weight"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/edittext_border_selector"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_20sdp"
+                android:textSize="@dimen/_11ssp"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="@color/eco_text_primary"
+                android:textColorHint="@color/eco_text_secondary"
+                android:maxLength="5"
+                android:hint="Eg: 20, 30.5, etc.."
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/edt_weight"
+                app:layout_constraintBottom_toBottomOf="@id/edt_weight"
+                app:layout_constraintEnd_toEndOf="@id/edt_weight"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:singleLine="true"
+                android:text="KG"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/eco_text_primary"
+                android:fontFamily="@font/poppins_semibold"
+                />
+
+            <TextView
+                android:id="@+id/upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edt_weight"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:singleLine="true"
+                android:text="Upload Photo (Optional)"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/eco_text_secondary"
+                android:fontFamily="@font/poppins_medium"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_75sdp"
+                app:layout_constraintTop_toBottomOf="@id/upload"
+                android:scrollbars="horizontal"
+                android:overScrollMode="never"
+                android:orientation="horizontal"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

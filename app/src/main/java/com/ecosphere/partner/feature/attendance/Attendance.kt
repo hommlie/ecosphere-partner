@@ -59,6 +59,7 @@ class Attendance : Fragment() {
         val statusBarHeight = CommonMethods.getStatusBarHeight(requireActivity())
         binding.viewStatusBar.layoutParams.height = statusBarHeight
 
+
         observeAttendanceState()
         setupDatePicker()
         setupRecycler()
@@ -272,5 +273,6 @@ class Attendance : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
 
 }

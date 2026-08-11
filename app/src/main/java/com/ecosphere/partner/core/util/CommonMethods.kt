@@ -1,24 +1,36 @@
 package com.ecosphere.partner.core.util
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Parcelable
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.exifinterface.media.ExifInterface
+import com.airbnb.lottie.LottieAnimationView
 import com.ecosphere.partner.R
+import java.io.File
+import java.io.FileOutputStream
 import java.util.Calendar
 
 object CommonMethods {
@@ -83,6 +95,43 @@ object CommonMethods {
         if (!dialog.isShowing) {
             dialog.show()
         }
+    }
+
+    fun showSuccessDialog(context: Context
+                          , msg: String
+                          ,onAnimationEnd: (() -> Unit)? = null)
+            : Dialog {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dlg_success)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+
+        dialog.findViewById<TextView>(R.id.tv_message)?.text = msg
+
+        val lottie = dialog.findViewById<LottieAnimationView>(R.id.lottieSuccess)
+        lottie?.playAnimation()
+
+        lottie?.addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                if (dialog.isShowing) dialog.dismiss()
+                onAnimationEnd?.invoke()
+            }
+        })
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val displayMetrics = context.resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val maxWidth = context.resources.getDimensionPixelSize(R.dimen.dialog_max_width)
+
+        val finalWidth = if (screenWidth > maxWidth) maxWidth else ViewGroup.LayoutParams.MATCH_PARENT
+
+        dialog.window?.setLayout(finalWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setGravity(Gravity.CENTER)
+
+        dialog.show()
+        return dialog
     }
 
     fun setStatusBarColor(activity: Activity, colorRes: Int, lightStatusBar: Boolean = true) {
@@ -205,4 +254,110 @@ object CommonMethods {
         }
     }
 
+    fun openDialPad(context: Context, phoneNum: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$phoneNum")
+        context.startActivity(intent)
+    }
+
+
+    fun compressImageFromUri(
+        context: Context,
+        uri: Uri,
+        quality: Int = 90,
+        maxWidth: Int = 1080,
+        maxHeight: Int = 1080,
+        usePng: Boolean = false,
+        preserveDetails: Boolean = false // NEW → true for OCR/medical documents
+    ): Uri? {
+        return try {
+            // Decode bitmap safely
+            val originalBitmap = context.contentResolver.openInputStream(uri)?.use {
+                BitmapFactory.decodeStream(it)
+            } ?: return null
+
+            // Read rotation
+            val rotationDegrees = context.contentResolver.openInputStream(uri)?.use {
+                val exif = ExifInterface(it)
+                val orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL
+                )
+                exifOrientationToDegrees(orientation)
+            } ?: 0
+
+            // Rotate if needed
+            val rotatedBitmap = if (rotationDegrees != 0) {
+                rotateBitmap(originalBitmap, rotationDegrees)
+            } else originalBitmap
+
+            // Adjust compression if preserving details
+            val (targetQuality, targetWidth, targetHeight) = if (preserveDetails) {
+                Triple(95, 1600, 1600) // higher clarity for OCR
+            } else {
+                Triple(quality, maxWidth, maxHeight)
+            }
+
+            // Resize only if needed
+            val resizedBitmap = if (
+                rotatedBitmap.width > targetWidth || rotatedBitmap.height > targetHeight
+            ) {
+                getResizedBitmap(rotatedBitmap, targetWidth, targetHeight)
+            } else rotatedBitmap
+
+            // Save compressed image
+            val ext = if (usePng) "png" else "jpg"
+            val file = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.$ext")
+            FileOutputStream(file).use { out ->
+                val format = if (usePng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG
+                resizedBitmap.compress(format, targetQuality, out)
+            }
+
+            // Cleanup memory
+            if (rotatedBitmap != originalBitmap) originalBitmap.recycle()
+            if (resizedBitmap != rotatedBitmap) rotatedBitmap.recycle()
+
+            // Return file URI
+            FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                file
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    fun exifOrientationToDegrees(orientation: Int): Int {
+        return when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> 90
+            ExifInterface.ORIENTATION_ROTATE_180 -> 180
+            ExifInterface.ORIENTATION_ROTATE_270 -> 270
+            else -> 0
+        }
+    }
+
+    fun rotateBitmap(bitmap: Bitmap, degrees: Int): Bitmap {
+        val matrix = Matrix().apply { postRotate(degrees.toFloat()) }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+    fun getResizedBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+
+        val ratioBitmap = when {
+            width > height -> {
+                val ratio = width.toFloat() / maxWidth
+                Bitmap.createScaledBitmap(bitmap, maxWidth, (height / ratio).toInt(), true)
+            }
+            height > width -> {
+                val ratio = height.toFloat() / maxHeight
+                Bitmap.createScaledBitmap(bitmap, (width / ratio).toInt(), maxHeight, true)
+            }
+            else -> {
+                Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true)
+            }
+        }
+        return ratioBitmap
+    }
 }

@@ -11,8 +11,11 @@ object PreferenceKeys {
     val ACCESS_TOKEN = stringPreferencesKey("access_token")
     val DRIVER_ID = stringPreferencesKey("driver_id")
     val DRIVER_NAME = stringPreferencesKey("driver_name")
-    val VEHICLE_NUMBER = stringPreferencesKey("vehicle_number")
     val DRIVER_PROFILE = stringPreferencesKey("driver_profile")
+
+    val VEHICLE_ID = stringPreferencesKey("vehicle_id")
+    val VEHICLE_NUMBER = stringPreferencesKey("vehicle_number")
+
     val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
 
 

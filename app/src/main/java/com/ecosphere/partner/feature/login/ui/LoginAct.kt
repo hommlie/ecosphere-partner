@@ -4,9 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
-import android.view.MotionEvent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +27,7 @@ import com.ecosphere.partner.core.util.KeyboardUtils
 import com.ecosphere.partner.core.util.ProgressDialogUtil
 import com.ecosphere.partner.databinding.ActivityLoginBinding
 import com.ecosphere.partner.feature.login.model.User
+import com.ecosphere.partner.feature.login.model.Vehicle
 import com.ecosphere.partner.feature.main.MainActivity
 import com.ecosphere.partner.feature.permissions.manager.PermissionManager
 import com.ecosphere.partner.feature.permissions.ui.PermissionsAct
@@ -235,9 +234,10 @@ class LoginAct : AppCompatActivity() {
 
                             val tokens = state.data.tokens
                             val user = state.data.user
+                            val vehicle = state.data.vehicle
 
-                            if (tokens != null && user != null) {
-                                saveSession(tokens, user)
+                            if (tokens != null && user != null && vehicle !=null) {
+                                saveSession(tokens, user, vehicle)
                                 viewModel.resetUIState()
                                 routeUser()
                             } else {
@@ -286,7 +286,7 @@ class LoginAct : AppCompatActivity() {
         }
     }
 
-    private suspend fun saveSession(token: String, user: User) {
+    private suspend fun saveSession(token: String, user: User, vehicle: Vehicle) {
 
         sessionManager.saveSession(
 
@@ -294,8 +294,9 @@ class LoginAct : AppCompatActivity() {
                 accessToken = token,
                 driverId = user.id,
                 driverName = user.name,
-                vehicleNumber = user.vehicleNumber,
                 driverProfile = user.profile,
+                vehicleId = vehicle.vehicleId,
+                vehicleNumber = vehicle.vehicleNumber,
                 isLoggedIn = true
             )
         )

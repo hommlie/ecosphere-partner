@@ -1,5 +1,8 @@
 package com.ecosphere.partner.core.network
 
+import com.ecosphere.partner.feature.jobs.model.PickUpDataByQR
+import com.ecosphere.partner.feature.jobs.model.PickupUi
+import com.ecosphere.partner.feature.jobs.model.SubmitWasteCollectionRequest
 import com.ecosphere.partner.feature.login.model.LoginData
 import com.ecosphere.partner.model.CommonResponse
 import com.ecosphere.partner.feature.patients.model.BranchesData
@@ -32,6 +35,20 @@ interface ApiService {
         @Body hashMap: HashMap<String, String>
     ) : Response<CommonResponse<LoginData>>
 
+    @POST("driver/pickups")
+    suspend fun getPickups() : Response<CommonResponse<List<PickupUi>>>
+
     @POST("cms")
     suspend fun getCms() : Response<CommonResponse<CmsPageResponse>>
+
+    @POST("v1/driver/fetch-order-details")
+    suspend fun getPickUpDataByQr(
+        @Body hashMap: HashMap<String, String>
+    ) : Response<CommonResponse<PickUpDataByQR>>
+
+    @POST("v1/driver/create-trip-summary")
+    suspend fun submitPickUpCollection(
+        @Body hashMap: SubmitWasteCollectionRequest
+    ) : Response<CommonResponse<Any?>>
+
 }

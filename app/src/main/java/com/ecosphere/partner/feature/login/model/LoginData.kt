@@ -6,10 +6,13 @@ import com.ecosphere.partner.model.Tokens
 data class LoginData(
 
     @SerializedName("driver")
-    val user: User?,
+    val user: User ?= null,
+
+    @SerializedName("vehicle")
+    val vehicle: Vehicle ?= null,
 
     @SerializedName("token")
-    val tokens: String?
+    val tokens: String? = null
 )
 data class User(
 
@@ -19,9 +22,13 @@ data class User(
     @SerializedName("name")
     val name: String?=null,
 
-    @SerializedName("vehicleNumber")
-    val vehicleNumber: String?=null,
-
     @SerializedName("profile")
     val profile: String?=null
+)
+data class Vehicle(
+    @SerializedName("id")
+    val vehicleId: String?=null,
+
+    @SerializedName("vehicleNumber")
+    val vehicleNumber: String?=null,
 )

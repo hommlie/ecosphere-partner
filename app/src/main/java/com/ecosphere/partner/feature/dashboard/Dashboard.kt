@@ -112,7 +112,7 @@ class Dashboard : Fragment() {
         val userProfile = userData?.driverProfile
 
         binding.tvUserName.text =
-            if (userName.isNullOrBlank()) "Guest User" else userName
+            if (userName.isNullOrBlank()) "Guest User | ${userData?.vehicleNumber}" else "$userName | ${userData.vehicleNumber}"
 
         if (userProfile.isNullOrBlank()) {
 

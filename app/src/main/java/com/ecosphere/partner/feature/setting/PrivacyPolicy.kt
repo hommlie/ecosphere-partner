@@ -2,6 +2,7 @@ package com.ecosphere.partner.feature.setting
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.text.LineBreaker
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -133,7 +134,7 @@ class PrivacyPolicy : AppCompatActivity() {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            binding.tvCmsData.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+            binding.tvCmsData.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
         }
     }
 }

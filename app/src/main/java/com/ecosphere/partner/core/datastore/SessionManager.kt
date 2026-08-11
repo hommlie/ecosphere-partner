@@ -25,7 +25,7 @@ import javax.inject.Singleton
 @Singleton
 class SessionManager @Inject constructor(
     private val preferenceManager: PreferenceManager,
-//    private val tokenStore: TokenStore
+    private val tokenStore: TokenStore
 ) {
 
     private val gson = Gson()
@@ -52,6 +52,11 @@ class SessionManager @Inject constructor(
     suspend fun getDriverId(): String? {
         return preferenceManager
             .getString(PreferenceKeys.DRIVER_ID)
+            .first()
+    }
+    suspend fun getVehicleId(): String? {
+        return preferenceManager
+            .getString(PreferenceKeys.VEHICLE_ID)
             .first()
     }
 
@@ -116,6 +121,10 @@ class SessionManager @Inject constructor(
             session.driverProfile?.let {
                 this[PreferenceKeys.DRIVER_PROFILE] = it
             }
+
+            session.vehicleId?.let {
+                this[PreferenceKeys.VEHICLE_ID] = it
+            }
             session.vehicleNumber?.let {
                 this[PreferenceKeys.VEHICLE_NUMBER] = it
             }
@@ -124,10 +133,10 @@ class SessionManager @Inject constructor(
                 session.isLoggedIn
 
         }
-//        tokenStore.update(
-//            session.accessToken,
+        tokenStore.update(
+            session.accessToken,
 //            session.refreshToken
-//        )
+        )
 
     }
 
@@ -136,8 +145,9 @@ class SessionManager @Inject constructor(
             accessToken = getAccessToken(),
             driverId = getDriverId(),
             driverName = getDriverName(),
-            vehicleNumber = getVehicleNumber(),
             driverProfile = getDriverProfile() ,
+            vehicleId = getVehicleId(),
+            vehicleNumber = getVehicleNumber(),
             isLoggedIn = isLoggedIn()
         )
     }
@@ -152,11 +162,10 @@ class SessionManager @Inject constructor(
             remove(PreferenceKeys.ACCESS_TOKEN)
 
             remove(PreferenceKeys.DRIVER_ID)
-
             remove(PreferenceKeys.DRIVER_NAME)
-
             remove(PreferenceKeys.DRIVER_PROFILE)
 
+            remove(PreferenceKeys.VEHICLE_ID)
             remove(PreferenceKeys.VEHICLE_NUMBER)
 
             remove(PreferenceKeys.IS_LOGGED_IN)
